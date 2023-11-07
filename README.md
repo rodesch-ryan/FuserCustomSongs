@@ -1,5 +1,5 @@
 # FuserCustomSongs
-## Arty's CustomSongExtractor
+## Arty's FuserCustomSongs
 Extract songs super easily with Arty's FuserCustomSongs!
 
 Features:
