@@ -9,6 +9,24 @@ import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import zipfile
+
+def check_for_WINRAR(path = r"C:\Program Files\WinRAR", download = r"https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe"):
+    if not os.path.exists(path):
+        os.makedirs(path)
+        try:
+            response = requests.get(download, stream=True)
+            response.raise_for_status()  # Check for HTTP errors
+            with open(path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            print(f"Downloaded WinRAR successfully to '{path}'.")
+            messagebox.showinfo("Install WinRAR", f"WinRAR downloaded to {path}, please install it to C:\Program Files\WinRAR.")
+        except requests.exceptions.HTTPError as err:
+            print(f"HTTP Error occurred: {err}")
+        except requests.exceptions.RequestException as err:
+            print(f"Error occurred during download: {err}")
+
+check_for_WINRAR()
 os.environ['PATH'] += os.pathsep + r"C:\Program Files\WinRAR"
 
 def check_and_download_winhttp(dll_path='Fuser\\Binaries\\Win64\\winhttp.dll', 
@@ -31,7 +49,7 @@ def check_and_download_winhttp(dll_path='Fuser\\Binaries\\Win64\\winhttp.dll',
         except requests.exceptions.RequestException as err:
             print(f"Error occurred during download: {err}")
     else:
-        pass
+        print(f"'winhttp.dll' already exists in '{dll_path}'.")
 
 # Call the function
 check_and_download_winhttp()
