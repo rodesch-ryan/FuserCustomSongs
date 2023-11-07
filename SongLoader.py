@@ -1,6 +1,6 @@
 '''
 Author: Artyom-V2X
-Version: 2
+Version: 1
 License: Open-Source
 '''
 import requests
